@@ -1,26 +1,35 @@
-worldMap = [
-	[1,1,1,1,1],
-	[1,0,0,0,1],
-	[1,0,1,0,1],
-	[1,0,0,0,1],
-	[1,1,1,1,1]
-]
+renderScale = 2
 
-pos = undefined
-dir = undefined
-pln = undefined
+level = undefined
+player = undefined
 
 setup = () ->
-	createCanvas(200, 100)
+	createCanvas(320 * renderScale, 200 * renderScale)
 
-	pos = createVector(1, 1)
-	dir = createVector(0, -1)
-	pln = createVector(0, 0.66)
+	level = new Level([
+		[1, 1, 1, 1, 1],
+		[1, 0, 1, 0, 1],
+		[1, 0, 0, 0, 1],
+		[1, 0, 0, 0, 1],
+		[1, 1, 1, 1, 1]
+		])
+	player = new Player(createVector(1.5, 1.5))
 
 draw = () ->
+	update(frameRate())
+	render(frameRate())
+
+update = (fr) ->
+	player.update(fr)
+
+render = (fr) ->
+	scale(renderScale)
 	background(51)
 
-	
+	level.render(fr)
+
+
+
 
 	# for x in [0..width-1]
 	# 	cameraX = 2 * x / width - 1

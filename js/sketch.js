@@ -1,20 +1,28 @@
-var dir, draw, pln, pos, setup, worldMap;
+var draw, level, player, render, renderScale, setup, update;
 
-worldMap = [[1, 1, 1, 1, 1], [1, 0, 0, 0, 1], [1, 0, 1, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 1]];
+renderScale = 2;
 
-pos = void 0;
+level = void 0;
 
-dir = void 0;
-
-pln = void 0;
+player = void 0;
 
 setup = function() {
-  createCanvas(200, 100);
-  pos = createVector(1, 1);
-  dir = createVector(0, -1);
-  return pln = createVector(0, 0.66);
+  createCanvas(320 * renderScale, 200 * renderScale);
+  level = new Level([[1, 1, 1, 1, 1], [1, 0, 1, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 1]]);
+  return player = new Player(createVector(1.5, 1.5));
 };
 
 draw = function() {
-  return background(51);
+  update(frameRate());
+  return render(frameRate());
+};
+
+update = function(fr) {
+  return player.update(fr);
+};
+
+render = function(fr) {
+  scale(renderScale);
+  background(51);
+  return level.render(fr);
 };
